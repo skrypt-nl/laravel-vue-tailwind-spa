@@ -23,16 +23,16 @@ this version only contains some changes for the use of Tailwind and to fit our o
 - Basic Tailwind design for some pages
 
 ## To Do
-- [x] Upgrade to Laravel 8
-- [x] Fixed ``npm run hot``
-- [x] Redesign auth pages
+- [x] ~~Upgrade to Laravel 8~~
+- [x] ~~Fix npm hot reloading~~
+- [x] ~~Redesign auth pages~~
 - [ ] Redesign dashboard pages
 - [ ] Remove redundant components
 - [ ] Create VueI18n components and implement them
 - [ ] Create Socialite components for GitHub
 - [ ] Fix all tests
 - [ ] Add more components
-- [ ] Create `CHANGELOG.md` and track changes
+- [ ] Create a changelog and track changes
 - [ ] Upgrade to Vue 3
 
 ## Installation
