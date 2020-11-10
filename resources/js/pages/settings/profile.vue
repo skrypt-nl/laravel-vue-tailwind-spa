@@ -1,43 +1,51 @@
 <template>
-  <card :title="$t('your_info')">
-    <form @submit.prevent="update" @keydown="form.onKeydown($event)">
-      <alert-success :form="form" :message="$t('info_updated')" />
+  <div class="w-full flex">
+    <card class="w-160 mx-auto">
+      <div class="mx-auto py-4 lg:py-8 px-0 lg:px-12">
+        <form @submit.prevent="update" @keydown="form.onKeydown($event)">
+          <notification ref="success">
+            {{ $t('info_updated') }}
+          </notification>
 
-      <!-- Name -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('name') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.name" :class="{ 'is-invalid': form.errors.has('name') }" class="form-control" type="text" name="name">
-          <has-error :form="form" field="name" />
-        </div>
-      </div>
+          <!-- Name -->
+          <div class="mb-6">
+            <label class="font-bold text-gray-700 select-none" for="name">Name</label>
+            <input id="name" v-model="form.name" :class="{ 'invalid': form.errors.has('name') }"
+                   class="form-input block w-full text-gray-800 mt-2" name="name" type="text"
+            >
+            <has-error class="text-sm text-red-500 font-semibold mt-2" :form="form" field="name" />
+          </div>
 
-      <!-- Email -->
-      <div class="form-group row">
-        <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-        <div class="col-md-7">
-          <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email">
-          <has-error :form="form" field="email" />
-        </div>
-      </div>
+          <!-- Email -->
+          <div class="mb-8">
+            <label class="font-bold text-gray-700 select-none" for="email">Email</label>
+            <input id="email" v-model="form.email" :class="{ 'invalid': form.errors.has('email') }"
+                   class="form-input block w-full text-gray-800 mt-2" name="email" type="email"
+            >
+            <has-error class="text-sm text-red-500 font-semibold mt-2" :form="form" field="email" />
+          </div>
 
-      <!-- Submit Button -->
-      <div class="form-group row">
-        <div class="col-md-9 ml-md-auto">
-          <v-button :loading="form.busy" type="success">
-            {{ $t('update') }}
-          </v-button>
-        </div>
+          <!-- Submit Button -->
+          <div>
+            <div>
+              <v-button :loading="form.busy">
+                {{ $t('update') }}
+              </v-button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </card>
+    </card>
+  </div>
 </template>
 
 <script>
 import Form from 'vform'
 import { mapGetters } from 'vuex'
+import Notification from '../../components/Notification'
 
 export default {
+  components: { Notification },
   scrollToTop: false,
 
   metaInfo () {
@@ -66,7 +74,8 @@ export default {
     async update () {
       const { data } = await this.form.patch('/api/settings/profile')
 
-      this.$store.dispatch('auth/updateUser', { user: data })
+      this.$refs.success.show()
+      await this.$store.dispatch('auth/updateUser', { user: data })
     }
   }
 }

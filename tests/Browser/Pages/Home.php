@@ -13,7 +13,7 @@ class Home extends Page
      */
     public function url()
     {
-        return '/home';
+        return '/dashboard';
     }
 
     /**

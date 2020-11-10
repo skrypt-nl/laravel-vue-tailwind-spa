@@ -11,7 +11,7 @@ export default {
   middleware: 'auth',
 
   metaInfo () {
-    return { title: this.$t('home') }
+    return { title: 'Components' }
   }
 }
 </script>
