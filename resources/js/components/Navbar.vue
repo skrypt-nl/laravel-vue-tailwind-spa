@@ -1,58 +1,49 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-white">
-    <div class="container">
-      <router-link :to="{ name: user ? 'home' : 'welcome' }" class="navbar-brand">
-        {{ appName }}
-      </router-link>
+  <nav class="bg-white text-gray-800 flex py-4 px-8 justify-between border-b z-50">
+    <div class="flex">
+      <h1 class="my-auto text-3xl font-semibold tracking-tighter text-teal-600">
+        <!-- LOGO HERE -->
+      </h1>
+    </div>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false">
-        <span class="navbar-toggler-icon" />
-      </button>
-
-      <div id="navbarToggler" class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-          <locale-dropdown />
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
-          <!-- Authenticated -->
-          <li v-if="user" class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-dark"
-               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            >
-              <img :src="user.photo_url" class="rounded-circle profile-photo mr-1">
-              {{ user.name }}
-            </a>
-            <div class="dropdown-menu">
-              <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
-                <fa icon="cog" fixed-width />
-                {{ $t('settings') }}
-              </router-link>
-
-              <div class="dropdown-divider" />
-              <a href="#" class="dropdown-item pl-3" @click.prevent="logout">
-                <fa icon="sign-out-alt" fixed-width />
-                {{ $t('logout') }}
-              </a>
+    <div class="flex my-auto">
+      <div class="my-auto">
+        <!-- Notifications -->
+      </div>
+      <div class="my-auto flex">
+        <dropdown-menu class="my-auto">
+          <div class="flex">
+            <div class="my-auto bg-gray-200 mr-3 rounded-full border-2 border-gray-200 overflow-hidden select-none">
+              <img :src="user.photo_url" class="select-none h-6" :alt="user.name">
             </div>
-          </li>
-          <!-- Guest -->
-          <template v-else>
-            <li class="nav-item">
-              <router-link :to="{ name: 'login' }" class="nav-link" active-class="active">
-                {{ $t('login') }}
+            <div class="my-auto mr-4">
+              <p class="font-semibold leading-none tracking-wide">
+                {{ user.name }}
+              </p>
+            </div>
+          </div>
+
+          <template v-slot:items>
+            <div class="py-1">
+              <router-link :to="{name: 'settings.profile'}"
+                           class="font-semibold block px-4 py-2 text-sm leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900 transition-all duration-100 ease-in-out outline-none"
+                           role="menuitem"
+              >
+                Settings
               </router-link>
-            </li>
-            <li class="nav-item">
-              <router-link :to="{ name: 'register' }" class="nav-link" active-class="active">
-                {{ $t('register') }}
-              </router-link>
-            </li>
+            </div>
+            <div class="border-t border-gray-100" />
+            <div class="py-1">
+              <span
+                class="font-semibold cursor-pointer block px-4 py-2 text-sm leading-5 text-gray-600 hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:bg-gray-100 focus:text-gray-900 transition-all duration-100 ease-in-out outline-none"
+                role="menuitem"
+                @click="logout"
+              >
+                Logout
+              </span>
+            </div>
           </template>
-        </ul>
+        </dropdown-menu>
       </div>
     </div>
   </nav>
@@ -60,13 +51,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import LocaleDropdown from './LocaleDropdown'
+import DropdownMenu from './DropdownMenu'
 
 export default {
-  components: {
-    LocaleDropdown
-  },
-
+  components: { DropdownMenu },
   data: () => ({
     appName: window.config.appName
   }),
@@ -81,16 +69,8 @@ export default {
       await this.$store.dispatch('auth/logout')
 
       // Redirect to login.
-      this.$router.push({ name: 'login' })
+      await this.$router.push({ name: 'login' })
     }
   }
 }
 </script>
-
-<style scoped>
-.profile-photo {
-  width: 2rem;
-  height: 2rem;
-  margin: -.375rem 0;
-}
-</style>

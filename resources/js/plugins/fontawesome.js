@@ -4,7 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 import {
   faCircleNotch as fasCircleNotch,
-  faChevronLeft as fasChevronLeft
+  faChevronLeft as fasChevronLeft,
+  faChevronDown as fasChevronDown,
+  faCheck as fasCheck,
+  faTimes as fasTimes
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -13,7 +16,7 @@ import {
 } from '@fortawesome/free-regular-svg-icons'
 
 library.add(
-  fasCircleNotch, fasChevronLeft
+  fasCircleNotch, fasChevronLeft, fasChevronDown, fasCheck, fasTimes
 )
 
 library.add(

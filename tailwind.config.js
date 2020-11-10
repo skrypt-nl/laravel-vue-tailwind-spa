@@ -265,6 +265,8 @@ module.exports = {
       mono: ['Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', '"Courier New"', 'monospace']
     },
     fontSize: {
+      '3xs': '0.5rem',
+      '2xs': '0.625rem',
       xs: '0.75rem',
       sm: '0.875rem',
       base: '1rem',
@@ -707,7 +709,7 @@ module.exports = {
     strokeWidth: ['responsive'],
     tableLayout: ['responsive'],
     textAlign: ['responsive'],
-    textColor: ['responsive', 'hover', 'focus'],
+    textColor: ['responsive', 'hover', 'focus', 'group-hover'],
     textOpacity: ['responsive', 'hover', 'focus'],
     textDecoration: ['responsive', 'hover', 'focus'],
     textTransform: ['responsive'],

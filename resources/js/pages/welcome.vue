@@ -2,7 +2,7 @@
   <div class="w-full flex text-center">
     <div class="absolute top-0 right-0 p-6">
       <template v-if="authenticated">
-        <router-link :to="{ name: 'home' }" class="mx-4 transition-all duration-100 ease-in-out hover:text-teal-500">
+        <router-link :to="{ name: 'dashboard.home' }" class="mx-4 transition-all duration-100 ease-in-out hover:text-teal-500">
           {{ $t('home') }}
         </router-link>
       </template>
