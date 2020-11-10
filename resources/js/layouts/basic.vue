@@ -1,5 +1,5 @@
 <template>
-  <div class="basic-layout d-flex align-items-center justify-content-center m-0 bg-white">
+  <div class="font-hairline h-screen w-screen flex text-gray-800 bg-gray-100">
     <child />
   </div>
 </template>
@@ -9,22 +9,3 @@ export default {
   name: 'BasicLayout'
 }
 </script>
-
-<style lang="scss">
-.basic-layout {
-  color: #636b6f;
-  height: 100vh;
-  font-weight: 100;
-  position: relative;
-
-  .links > a {
-    color: #636b6f;
-    padding: 0 25px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .1rem;
-    text-decoration: none;
-    text-transform: uppercase;
-  }
-}
-</style>

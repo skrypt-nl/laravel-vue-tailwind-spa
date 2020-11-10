@@ -83,7 +83,7 @@ class LoginController extends Controller
         }
 
         throw ValidationException::withMessages([
-            $this->username() => [trans('auth.failed')],
+            'credentials' => [trans('auth.failed')]
         ]);
     }
 

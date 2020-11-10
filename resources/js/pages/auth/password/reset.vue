@@ -1,47 +1,64 @@
 <template>
-  <div class="row">
-    <div class="col-lg-8 m-auto">
-      <card :title="$t('reset_password')">
-        <form @submit.prevent="reset" @keydown="form.onKeydown($event)">
-          <alert-success :form="form" :message="status" />
-
-          <!-- Email -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('email') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.email" :class="{ 'is-invalid': form.errors.has('email') }" class="form-control" type="email" name="email" readonly>
-              <has-error :form="form" field="email" />
+  <div class="flex w-screen h-screen">
+    <div class="m-auto flex flex-col max-w-screen">
+      <div class="p-8 mx-auto text-center">
+        <h1 class="text-4xl font-bold text-gray-800 mb-1 tracking-tight">
+          Reset your password
+        </h1>
+        <h2 class="text-lg text-gray-800 font-medium">
+          New here?
+          <router-link :to="{name: 'register'}"
+                       class="text-teal-500 hover:text-teal-600 transition-all duration-100 ease-in-out"
+          >
+            Create an account
+          </router-link>
+        </h2>
+      </div>
+      <div class="px-3 w-screen sm:w-128 max-w-screen">
+        <div class="bg-white rounded shadow py-10 lg:py-12 px-6 sm:px-8 md:px-10 lg:px-12">
+          <form v-if="!status" @submit.prevent="reset" @keydown="form.onKeydown($event)">
+            <div class="mb-6">
+              <label class="font-bold text-gray-700 select-none" for="email">Email address</label>
+              <input id="email" v-model="form.email"
+                     :class="{ 'invalid': form.errors.has('email') }"
+                     class="form-input block w-full text-gray-800 mt-2" name="email" type="email"
+              >
+              <has-error class="text-sm text-red-500 font-semibold mt-2" :form="form" field="email" />
             </div>
-          </div>
 
-          <!-- Password -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password" :class="{ 'is-invalid': form.errors.has('password') }" class="form-control" type="password" name="password">
-              <has-error :form="form" field="password" />
+            <div class="mb-8">
+              <label class="font-bold text-gray-700 select-none" for="password">New password</label>
+              <input id="password" v-model="form.password" :class="{ 'invalid': form.errors.has('password') }"
+                     class="form-input block w-full text-gray-800 mt-2" name="password" type="password" placeholder="Min. 6 characters"
+              >
+              <has-error class="text-sm text-red-500 font-semibold mt-2" :form="form" field="password" />
             </div>
-          </div>
 
-          <!-- Password Confirmation -->
-          <div class="form-group row">
-            <label class="col-md-3 col-form-label text-md-right">{{ $t('confirm_password') }}</label>
-            <div class="col-md-7">
-              <input v-model="form.password_confirmation" :class="{ 'is-invalid': form.errors.has('password_confirmation') }" class="form-control" type="password" name="password_confirmation">
-              <has-error :form="form" field="password_confirmation" />
-            </div>
-          </div>
-
-          <!-- Submit Button -->
-          <div class="form-group row">
-            <div class="col-md-9 ml-md-auto">
+            <div>
               <v-button :loading="form.busy">
                 {{ $t('reset_password') }}
               </v-button>
             </div>
+          </form>
+          <div v-else class="text-center">
+            <fa :icon="['far', 'check-circle']" class="text-teal-500 opacity-50 text-7xl mb-4" />
+            <h1 class="text-3xl font-bold text-gray-800 leading-loose">
+              Reset successful
+            </h1>
+            <h2 class="text-base font-medium text-gray-500">
+              {{ status }}
+            </h2>
           </div>
-        </form>
-      </card>
+        </div>
+        <div class="mt-4">
+          <router-link :to="{name: 'login'}"
+                       class="text-teal-500 hover:text-teal-600 transition-all duration-100 ease-in-out text-gray-800 font-medium"
+          >
+            <fa :icon="['fas', 'chevron-left']" class="mr-1 text-sm" />
+            Back to login
+          </router-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +68,7 @@ import Form from 'vform'
 
 export default {
   middleware: 'guest',
+  layout: 'basic',
 
   metaInfo () {
     return { title: this.$t('reset_password') }
